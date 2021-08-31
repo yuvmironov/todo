@@ -57,7 +57,6 @@ export default {
     const store = useStore()
 
     const timeDifference = computed(() => {
-      console.log(new Date(props.todo.endDate) - new Date())
       if ((new Date(props.todo.endDate) - new Date()) <= 0) {
         return '0'
       }

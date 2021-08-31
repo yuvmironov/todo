@@ -90,6 +90,11 @@ export default {
           }
           break
         case 'overdue':
+          for (let i = 0; i < listFields.value.length; i++) {
+            if ((new Date(listFields.value[i].endDate) - new Date()) <= 0 && !listFields.value[i].endFlag) {
+              temp.value.push(listFields.value[i])
+            }
+          }
           break
         case 'all':
           temp.value = listFields.value
