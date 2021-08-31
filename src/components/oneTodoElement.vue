@@ -9,13 +9,14 @@
       'OneTodoElement-Time_12': timeDifference === '12' && !todo.endFlag,
       'OneTodoElement-Time_24': timeDifference === '24' && !todo.endFlag
     }">{{ convertTime }}</p>
-    <input
-      class="OneTodoElement-Element"
-      type="checkbox"
-      @change="endTask(todo.key)"
-      :checked="todo.endFlag"
-      :disabled="todo.endFlag"
-    />
+    <div class="OneTodoElement-Element">
+      <input
+        type="checkbox"
+        @change="endTask(todo.key)"
+        :checked="todo.endFlag"
+        :disabled="todo.endFlag"
+      />
+    </div>
     <div class="OneTodoElement-Element">
       <button @click="delField(todo.key)">delete</button>
       <button :disabled="todo.endFlag" @click="editField(todo)">edit</button>
@@ -120,19 +121,24 @@ export default {
   width 100%
   justify-content flex-start
   align-items flex-start
-  &:not(:last-child)
-    margin-bottom 10px
   &-Element
+    padding 4px
+    border 1px solid black
+    height 35px
+    display flex
+    align-items center
     &:first-child
       flex-basis 30%
     &:nth-child(2)
-      flex-basis 40%
+      flex-basis 35%
     &:nth-child(3)
       flex-basis 15%
     &:nth-child(4)
-      flex-basis 5%
+      flex-basis 10%
+      justify-content center
     &:last-child
       flex-basis 10%
+      justify-content center
   &_EndTask
     text-decoration line-through
   &-Time

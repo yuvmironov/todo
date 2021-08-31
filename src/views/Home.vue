@@ -16,7 +16,20 @@
       <button @click="addTask">add</button>
     </div>
     <div class="Home-Lists">
-      <oneTodoElement v-for="(element, index) in listFields" :key="index" :todo="element"/>
+      <div class="Home-TableButtons">
+        <button class="Home-TableButton" @click="sortTable('notEnd')">Показать не законченные</button>
+        <button class="Home-TableButton" @click="sortTable('ended')">Показать законченные</button>
+        <button class="Home-TableButton" @click="sortTable('overdue')">Показать просроченные</button>
+        <button class="Home-TableButton" @click="sortTable('all')">Показать все</button>
+      </div>
+      <div class="Home-TableHeader">
+        <p>Название</p>
+        <p>Описание</p>
+        <p>Дата окончания</p>
+        <p>Исполнено</p>
+        <p>Действия</p>
+      </div>
+      <oneTodoElement v-for="(element, index) in temp" :key="index" :todo="element"/>
     </div>
   </div>
   <Noty/>
@@ -38,7 +51,7 @@ export default {
   setup () {
     const store = useStore()
     const listFields = computed(() => store.getters.getFields)
-
+    const temp = ref(listFields.value)
     const nameTask = ref('')
     const descriptionTask = ref('')
     const endDateTask = ref('')
@@ -59,13 +72,39 @@ export default {
         })
       }
     }
+    const sortTable = (flag) => {
+      temp.value = []
+      switch (flag) {
+        case 'ended':
+          for (let i = 0; i < listFields.value.length; i++) {
+            if (listFields.value[i].endFlag) {
+              temp.value.push(listFields.value[i])
+            }
+          }
+          break
+        case 'notEnd':
+          for (let i = 0; i < listFields.value.length; i++) {
+            if (!listFields.value[i].endFlag) {
+              temp.value.push(listFields.value[i])
+            }
+          }
+          break
+        case 'overdue':
+          break
+        case 'all':
+          temp.value = listFields.value
+          break
+      }
+    }
 
     return {
       listFields,
       nameTask,
       descriptionTask,
       endDateTask,
-      addTask
+      addTask,
+      sortTable,
+      temp
     }
   }
 }
@@ -74,6 +113,27 @@ export default {
 <style lang="stylus">
 .Home
   display flex
+  &-TableButtons
+    margin-bottom 10px
+  &-TableButton
+    &:not(:last-child)
+      margin-right 5px
+  &-TableHeader
+    display flex
+    width 100%
+    & > p
+      border 1px solid black
+      padding 4px
+      &:first-child
+        flex-basis 30%
+      &:nth-child(2)
+        flex-basis 35%
+      &:nth-child(3)
+        flex-basis 15%
+      &:nth-child(4)
+        flex-basis 10%
+      &:last-child
+        flex-basis 10%
   &-TextArea
     width 250px
     height 300px

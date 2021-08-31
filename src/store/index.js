@@ -15,6 +15,20 @@ const state = {
       description: 'Описание 3',
       endDate: '2021-06-11T11:11',
       endFlag: true
+    },
+    {
+      key: '2dcccdcae8082eacc452bed024d7d4736359aeae',
+      header: 'Заголовок 2',
+      description: 'Описание 3',
+      endDate: '2021-06-11T11:11',
+      endFlag: true
+    },
+    {
+      key: '2dcccdcae8082eacc452bed024d7d4736359aeae',
+      header: 'Заголовок 2',
+      description: 'Описание 3',
+      endDate: '2021-09-11T11:11',
+      endFlag: false
     }
   ],
   NotyShowFlag: false,
